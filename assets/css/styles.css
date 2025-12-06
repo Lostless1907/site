@@ -329,7 +329,7 @@ input:checked + .slider:before { transform: translateX(20px); background-color: 
     bottom: 0;
     width: 100%;
     border-top: 1px solid rgba(0,0,0,0.05);
-    z-index: 20;
+    z-index: 2000;
     transition: background-color 0.3s ease;
 }
 .nav-item {

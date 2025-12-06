@@ -41,16 +41,18 @@
         
         <div id="view-dashboard" class="view active-view">
             <header>
-                <h1 class="desktop-only">Dashboard</h1>
-                <h1 class="mobile-only">Breathe <span style="font-weight:300; color:var(--primary)">J&K</span></h1>
+                <div class="header-title">
+                    <h1 class="desktop-only">Dashboard</h1>
+                    <h1 class="mobile-only">Breathe <span style="font-weight:300; color:var(--primary)">J&K</span></h1>
+                </div>
                 
-                <button class="btn-primary" onclick="showView('explore')">
+                <button class="add-btn" onclick="showView('explore')">
                     <span class="desktop-text">Add Location</span>
                     <span class="mobile-icon">+</span>
                 </button>
             </header>
             
-            <div id="pinned-container" class="content-scroll grid-layout"></div>
+            <div id="pinned-container" class="content-scroll home-list"></div>
 
             <div id="empty-state" class="empty-state hidden">
                 <p>No zones pinned yet.</p>

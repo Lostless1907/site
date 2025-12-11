@@ -24,6 +24,19 @@ export function renderDashboardCard(zone: Zone, data: AQIData, onClick: () => vo
   return card;
 }
 
+export function renderSkeletonCard(): HTMLElement {
+  const card = document.createElement('div');
+  card.className = 'dashboard-card skeleton-card';
+  card.innerHTML = `
+        <div style="flex: 1;">
+            <div class="skeleton-line" style="width: 60%; height: 18px; margin-bottom: 8px;"></div>
+            <div class="skeleton-line" style="width: 40%; height: 12px;"></div>
+        </div>
+        <div class="skeleton-badge"></div>
+    `;
+  return card;
+}
+
 // explore
 export function renderExploreItem(
   zone: Zone,
@@ -35,7 +48,9 @@ export function renderExploreItem(
   div.innerHTML = `
         <div>
             <div style="font-weight:500; font-size:16px; margin-bottom:4px;">${zone.name}</div>
-            <div style="font-size:12px; color:var(--on-surface-variant);">${zone.provider || 'openmeteo'}</div>
+            <div style="font-size:12px; color:var(--on-surface-variant);">${
+              zone.provider || 'openmeteo'
+            }</div>
         </div>
         <button class="pin-btn ${isPinned ? 'pinned' : ''}">
             <svg viewBox="0 0 24 24"><path d="M16 9V4l1 1c.55.55 1.45.55 2 0s.55-1.45 0-2l-7-7-7 7c-.55.55-.55 1.45 0 2s1.45.55 2 0l1-1v5c0 1.66-1.34 3-3 3h-1v2h12v-2h-1c-1.66 0-3-1.34-3-3zM12 2C13 2 14 3 14 4V9H10V4C10 3 11 2 12 2M12 14C13.5 14 15 13 15 11.5V10H9V11.5C9 13 10.5 14 12 14Z" transform="rotate(45 12 12)"/></svg>

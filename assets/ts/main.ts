@@ -7,8 +7,9 @@ import {
   renderExploreItem,
   updateDetailView,
   updateChartTheme,
+  renderSkeletonCard,
 } from './ui.js';
-import { Zone } from './types.js';
+import { Zone, AQIData } from './types.js';
 
 let allZones: Zone[] = [];
 let pinnedZoneIds: string[] = JSON.parse(localStorage.getItem(STORAGE_KEY_PINS) || '[]');
@@ -49,15 +50,31 @@ async function refreshDashboard() {
   }
   emptyState.classList.add('hidden');
 
-  for (const id of pinnedZoneIds) {
-    const zone = allZones.find((z) => z.id === id);
-    if (!zone) continue;
-    const data = await getZoneAQI(id);
-    if (!data) continue;
+  // Show skeleton loaders immediately
+  const skeletons = Array.from({ length: 4 }, () => renderSkeletonCard());
+  container.append(...skeletons);
 
-    const card = renderDashboardCard(zone, data, () => openDetails(zone.id));
-    container.appendChild(card);
-  }
+  // Fetch all data in parallel
+  const dataPromises = pinnedZoneIds.map(async (id) => {
+    const zone = allZones.find((z) => z.id === id);
+    if (!zone) return null;
+    const data = await getZoneAQI(id);
+    if (!data) return null;
+    return { zone, data };
+  });
+
+  const results = await Promise.all(dataPromises);
+
+  // Create all cards in memory first (no DOM operations yet)
+  const cards = results
+    .filter((result): result is { zone: Zone; data: AQIData } => result !== null)
+    .map((result) =>
+      renderDashboardCard(result.zone, result.data, () => openDetails(result.zone.id))
+    );
+
+  // Replace all skeletons with actual cards in a single operation
+  container.innerHTML = '';
+  container.append(...cards);
 }
 
 function refreshExploreList(filter: string = '') {

@@ -578,6 +578,7 @@ input:checked + .slider:before {
   height: 24px;
   fill: var(--on-surface-variant);
   transition: fill 0.2s;
+  transform: rotate(45deg);
 }
 .pin-btn.pinned svg {
   fill: var(--primary);

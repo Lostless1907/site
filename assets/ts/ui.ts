@@ -8,6 +8,16 @@ type LineChart = InstanceType<typeof Chart<'line', number[], string>>;
 // Chart is loaded via CDN, so we type the global constructor for TS.
 let detailChart: LineChart | null = null;
 
+// Pin icon SVGs
+const PINNED_ICON =
+  '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="m640-480 80 80v80H520v240l-40 40-40-40v-240H240v-80l80-80v-280h-40v-80h400v80h-40v280Z"/></svg>';
+const UNPINNED_ICON =
+  '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="m640-480 80 80v80H520v240l-40 40-40-40v-240H240v-80l80-80v-280h-40v-80h400v80h-40v280Zm-286 80h252l-46-46v-314H400v314l-46 46Zm126 0Z"/></svg>';
+
+function getPinIcon(isPinned: boolean): string {
+  return isPinned ? PINNED_ICON : UNPINNED_ICON;
+}
+
 // main dashboard
 export function renderDashboardCard(zone: Zone, data: AQIData, onClick: () => void): HTMLElement {
   const colorClass = getAQIColor(data.aqi).bg;
@@ -57,7 +67,7 @@ export function renderExploreItem(
             }</div>
         </div>
         <button class="pin-btn ${isPinned ? 'pinned' : ''}">
-            <svg viewBox="0 0 24 24"><path d="M16 9V4l1 1c.55.55 1.45.55 2 0s.55-1.45 0-2l-7-7-7 7c-.55.55-.55 1.45 0 2s1.45.55 2 0l1-1v5c0 1.66-1.34 3-3 3h-1v2h12v-2h-1c-1.66 0-3-1.34-3-3zM12 2C13 2 14 3 14 4V9H10V4C10 3 11 2 12 2M12 14C13.5 14 15 13 15 11.5V10H9V11.5C9 13 10.5 14 12 14Z" transform="rotate(45 12 12)"/></svg>
+            ${getPinIcon(isPinned)}
         </button>
     `;
   const btn = div.querySelector('.pin-btn') as HTMLButtonElement;
@@ -65,6 +75,8 @@ export function renderExploreItem(
     e.stopPropagation();
     onPinClick();
     btn.classList.toggle('pinned');
+    const newIsPinned = btn.classList.contains('pinned');
+    btn.innerHTML = getPinIcon(newIsPinned);
   });
   return div;
 }

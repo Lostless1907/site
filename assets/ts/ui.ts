@@ -123,6 +123,31 @@ export function updateDetailView(zone: Zone, data: AQIData) {
   const providerContainer = document.getElementById('detail-provider');
   const cigaretteContainer = document.getElementById('cigarette-card-container');
 
+  let warningEl = document.getElementById('detail-warning');
+  if (!warningEl) {
+      warningEl = document.createElement('div');
+      warningEl.id = 'detail-warning';
+      warningEl.style.marginTop = '16px';
+      warningEl.style.marginBottom = '16px';
+      const mainCard = document.getElementById('detail-main-card');
+      if (mainCard && mainCard.parentNode) {
+          mainCard.parentNode.insertBefore(warningEl, mainCard.nextSibling);
+      }
+  }
+
+  if (data.warning) {
+      warningEl.innerHTML = `
+        <div style="background: rgba(255, 82, 82, 0.1); border: 1px solid var(--aqi-very-poor); border-radius: 12px; padding: 12px; display: flex; align-items: start; gap: 12px;">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="var(--aqi-very-poor)"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+            <div style="font-size: 13px; color: var(--on-surface); line-height: 1.4;">${data.warning}</div>
+        </div>
+      `;
+      warningEl.style.display = 'block';
+  } else {
+      warningEl.innerHTML = '';
+      warningEl.style.display = 'none';
+  }
+
   if (aqiEl) {
     aqiEl.innerText = displayAqi.toString();
     aqiEl.style.color = colors.hex;

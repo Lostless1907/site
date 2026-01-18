@@ -27,6 +27,7 @@ export interface AQIData {
   zone_id: string;
   zone_name: string;
   source: string;
+  warning?: string;
 }
 
 export interface AQIColorResult {

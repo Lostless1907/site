@@ -70,7 +70,7 @@ async function refreshDashboard() {
   emptyState.classList.add('hidden');
 
   // Show skeleton loaders immediately
-  const skeletons = Array.from({ length: 4 }, () => renderSkeletonCard());
+  const skeletons = Array.from({ length: Math.min(pinnedZoneIds.length, 4) }, () => renderSkeletonCard());
   container.append(...skeletons);
 
   // Fetch all data in parallel
@@ -87,8 +87,8 @@ async function refreshDashboard() {
   // Create all cards in memory first (no DOM operations yet)
   const cards = results
     .filter((result): result is { zone: Zone; data: AQIData } => result !== null)
-    .map((result) =>
-      renderDashboardCard(result.zone, result.data, () => openDetails(result.zone.id))
+    .map((result, index) =>
+      renderDashboardCard(result.zone, result.data, () => openDetails(result.zone.id), index)
     );
 
   // Replace all skeletons with actual cards in a single operation

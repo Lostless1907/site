@@ -88,16 +88,45 @@
 
             <div class="content-scroll">
                 <div class="detail-container">
-                    <div class="card main-aqi-card" id="detail-main-card">
-                         <div class="aqi-display-large" id="detail-aqi">--</div>
-                         <div class="naqi-chip">NAQI</div>
-                         <div class="primary-pollutant" id="detail-primary">Primary: --</div>
-    
-                        <div class="trend-display" id="detail-trend"></div>
-    
-                        <div class="update-time" id="detail-updated">Updated --</div>
+                    <div id="detail-now-viewing" class="now-viewing">
+                        <div class="now-viewing-left">
+                            <div class="now-viewing-badge">
+                                <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                                Now Viewing
+                            </div>
+                            <div class="now-viewing-name" id="detail-zone-name">Location</div>
+                            <div class="now-viewing-source" id="detail-source-indicator">
+                                <span class="live-dot"></span>
+                                Live Ground Sensors
+                            </div>
+                        </div>
                         <div id="detail-provider" class="provider-container"></div>
                     </div>
+
+                    <div class="card main-aqi-card" id="detail-main-card">
+                        <div class="aqi-header" style="display: flex; justify-content: space-between; align-items: flex-start; width: 100%;">
+                            <div style="text-align: left;">
+                                <div class="aqi-display-large" id="detail-aqi">--</div>
+                                <div class="naqi-chip" id="detail-standard-chip">NAQI</div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div class="primary-pollutant-label">Primary</div>
+                                <div class="primary-pollutant-value" id="detail-primary">PM2_5</div>
+                                <div id="detail-trend" class="trend-badge"></div>
+                                <div class="update-time" id="detail-updated">Updated --</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="aqi-bar-container" id="aqi-bar-container">
+                        <div class="aqi-bar-label" id="aqi-bar-label">Moderate</div>
+                        <div class="aqi-bar" id="aqi-bar">
+                            <div class="aqi-bar-gradient"></div>
+                            <div class="aqi-bar-indicator" id="aqi-bar-indicator"></div>
+                        </div>
+                    </div>
+
+                    <div id="detail-warning"></div>
 
                     <div id="cigarette-card-container"></div>
 
@@ -113,7 +142,7 @@
                         </div>
                     </div>
 
-                    <h3 class="section-title">Pollutants</h3>
+                    <h3 class="section-title">All Pollutants</h3>
                     <div class="pollutant-grid" id="pollutant-grid"></div>
                     <div style="height: 40px"></div>
                 </div>

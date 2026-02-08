@@ -75,6 +75,7 @@ body {
   font-family: 'Roboto', sans-serif;
   margin: 0;
   padding: 0;
+  display: flex;
   height: 100vh;
   height: 100dvh;
   overflow: hidden;
@@ -307,10 +308,15 @@ header {
 
 .naqi-chip {
   color: #1a1c22;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 6px 14px;
   border-radius: var(--shape-corner-full);
   font-weight: 600;
   font-size: 12px;
+  line-height: 1;
+  white-space: nowrap;
   margin-bottom: 8px;
   position: relative;
   z-index: 1;
@@ -353,17 +359,15 @@ header {
   font-size: 13px;
   font-weight: 600;
   margin-top: 8px;
-  background: var(--surface-variant);
+  background: transparent;
 }
 
 .trend-badge.improving {
   color: var(--aqi-good);
-  background: rgba(74, 222, 128, 0.15);
 }
 
 .trend-badge.worsening {
   color: var(--aqi-very-poor);
-  background: rgba(248, 113, 113, 0.15);
 }
 
 .update-time {
@@ -940,9 +944,6 @@ input:checked + .slider:before {
 }
 
 @media (min-width: 768px) {
-  body {
-    display: flex;
-  }
   .sidebar {
     display: flex;
     flex-direction: column;

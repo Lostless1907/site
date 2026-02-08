@@ -102,7 +102,11 @@ export function renderNowViewing(zone: Zone, data: AQIData): void {
             <span class="live-dot"></span>
             Live Ground Sensors
           </div>
-        ` : ''}
+        ` : `
+          <div class="now-viewing-source" style="color: var(--on-surface-variant);">
+            Satellite and Model data
+          </div>
+        `}
       </div>
       ${isLive ? `
         <a href="https://airgradient.com" target="_blank" class="provider-link">
@@ -241,13 +245,20 @@ export function renderExploreItem(
         </button>
     `;
   const btn = div.querySelector('.pin-btn') as HTMLButtonElement;
-  btn.addEventListener('click', (e) => {
-    e.stopPropagation();
+  const handlePin = () => {
     onPinClick();
     btn.classList.toggle('pinned');
     const newIsPinned = btn.classList.contains('pinned');
     btn.innerHTML = getPinIcon(newIsPinned);
+    div.style.transform = 'scale(0.97)';
+    setTimeout(() => { div.style.transform = ''; }, 150);
+  };
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    handlePin();
   });
+  div.addEventListener('click', handlePin);
+  div.style.cursor = 'pointer';
   return div;
 }
 
@@ -292,9 +303,12 @@ export function updateDetailView(zone: Zone, data: AQIData) {
         <span class="live-dot"></span>
         Live Ground Sensors
       `;
+      sourceIndicatorEl.style.color = '';
       sourceIndicatorEl.style.display = 'flex';
     } else {
-      sourceIndicatorEl.style.display = 'none';
+      sourceIndicatorEl.innerHTML = `Satellite and Model data`;
+      sourceIndicatorEl.style.color = 'var(--on-surface-variant)';
+      sourceIndicatorEl.style.display = 'flex';
     }
   }
 

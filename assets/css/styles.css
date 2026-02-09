@@ -789,10 +789,7 @@ input:checked + .slider:before {
   transform: scale(0.98);
 }
 
-.explore-card.pin-flash,
-.explore-card.pin-flash:active {
-  transform: none;
-}
+
 
 @keyframes pinFlash {
   0% { transform: scale(1); }
@@ -803,6 +800,7 @@ input:checked + .slider:before {
 .explore-card.pin-flash {
   animation: pinFlash 250ms var(--motion-easing-emphasized);
 }
+
 
 .pin-btn {
   background: var(--surface-variant);
@@ -1147,10 +1145,8 @@ input:checked + .slider:before {
     padding: 12px;
     padding-bottom: 140px;
   }
-  .explore-card {
-    padding: 14px;
-    height: auto;
-  }
+
+
   
   .aqi-display-large {
     font-size: 56px;

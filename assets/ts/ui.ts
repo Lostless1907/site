@@ -234,15 +234,17 @@ export function renderExploreItem(
   const div = document.createElement('div');
   div.className = 'explore-card';
   div.innerHTML = `
-        <div>
-            <div style="font-weight:500; font-size:16px; margin-bottom:4px;">${zone.name}</div>
-            <div style="font-size:12px; color:var(--on-surface-variant);">${
-              zone.provider || 'openmeteo'
-            }</div>
+        <div class="explore-card-inner">
+            <div>
+                <div style="font-weight:500; font-size:16px; margin-bottom:4px;">${zone.name}</div>
+                <div style="font-size:12px; color:var(--on-surface-variant);">${
+                  zone.provider || 'openmeteo'
+                }</div>
+            </div>
+            <button class="pin-btn ${isPinned ? 'pinned' : ''}">
+                ${getPinIcon(isPinned)}
+            </button>
         </div>
-        <button class="pin-btn ${isPinned ? 'pinned' : ''}">
-            ${getPinIcon(isPinned)}
-        </button>
     `;
   const btn = div.querySelector('.pin-btn') as HTMLButtonElement;
   const handlePin = () => {

@@ -789,6 +789,11 @@ input:checked + .slider:before {
   transform: scale(0.98);
 }
 
+.explore-card.pin-flash,
+.explore-card.pin-flash:active {
+  transform: none;
+}
+
 @keyframes pinFlash {
   0% { transform: scale(1); }
   40% { transform: scale(0.96); }

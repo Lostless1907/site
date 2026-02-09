@@ -250,14 +250,16 @@ export function renderExploreItem(
     btn.classList.toggle('pinned');
     const newIsPinned = btn.classList.contains('pinned');
     btn.innerHTML = getPinIcon(newIsPinned);
-    div.style.transform = 'scale(0.97)';
-    setTimeout(() => { div.style.transform = ''; }, 150);
+    div.classList.remove('pin-flash');
+    void div.offsetWidth;
+    div.classList.add('pin-flash');
   };
   btn.addEventListener('click', (e) => {
     e.stopPropagation();
     handlePin();
   });
   div.addEventListener('click', handlePin);
+  div.addEventListener('animationend', () => div.classList.remove('pin-flash'));
   div.style.cursor = 'pointer';
   return div;
 }
